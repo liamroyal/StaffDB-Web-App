@@ -1,0 +1,155 @@
+@page
+@model StaffDatabase.Pages.Staff.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Contact List</h1>
+<!-- if >= 15 staff dont allow access to create-->
+<p>
+
+    @if (Model.entries >= 15)
+    {
+        <a data-toggle="modal" data-target="#myModal" style="color: rgb(220,20,60)">
+        Add New Staff Member</a>
+    }
+    else
+    {
+        <a asp-page="Create">Add New Staff Member</a>
+    }
+</p>
+
+<!-- Export to CSV and Printable buttons -->
+<form method="post">
+    <button asp-page-handler="CSV">Export to CSV</button>
+    <button asp-page-handler="Print" data-toggle="modal" data-target="#pdfModal">Printable File</button>
+</form>
+
+<!-- Display headers -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StaffMember[0].Fname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StaffMember[0].Mname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StaffMember[0].Lname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StaffMember[0].HomePh)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StaffMember[0].CellPh)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StaffMember[0].OffExtension)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StaffMember[0].IrdNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StaffMember[0].Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Display tuple values -->
+@foreach (var item in Model.StaffMember) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HomePh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CellPh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OffExtension)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IrdNo)
+            </td>
+            <!-- Status Flag -->
+            @if (item.Status)
+            {
+                <td><div style=" width: 20px;
+                             height: 20px;
+                             border-radius: 25px;
+                             background: rgb(74,212,86);"></div></td>
+              
+            }
+            else
+            {       
+                <td><div style=" width: 20px;
+                             height: 20px;
+                             border-radius: 25px;
+                             background: rgb(220,20,60);"></div></td>
+            }
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.IrdNo">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.IrdNo">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.IrdNo">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<!-- libraries -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- Modal popup for max entries -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title">Database full</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Database can not exceed 15 entries, remove an exsisting entry to clear space</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Dismiss</button>
+            </div>
+        </div>
+    </div>
+</div>
+<p>
+
+<!-- Modal Popup for pdf notification-->
+<div id="pdfModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title">Contact Report saved to desktop</h4>
+                <button type="button" class="close" data-dismiss="pdfmodal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Contact list saved to desktop as "Contacts.pdf"</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="pdfmodal">Dismiss</button>
+            </div>
+        </div>
+    </div>
+</div>

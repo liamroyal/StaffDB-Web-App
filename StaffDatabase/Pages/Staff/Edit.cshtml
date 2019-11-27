@@ -1,0 +1,66 @@
+@page
+@model StaffDatabase.Pages.Staff.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>StaffMember</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <!-- Form for editng current tuple -->
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="StaffMember.Fname" class="control-label"></label>
+                <input asp-for="StaffMember.Fname" class="form-control" />
+                <span asp-validation-for="StaffMember.Fname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StaffMember.Lname" class="control-label"></label>
+                <input asp-for="StaffMember.Lname" class="form-control" />
+                <span asp-validation-for="StaffMember.Lname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StaffMember.Mname" class="control-label"></label>
+                <input asp-for="StaffMember.Mname" class="form-control" />
+                <span asp-validation-for="StaffMember.Mname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StaffMember.HomePh" class="control-label"></label>
+                <input asp-for="StaffMember.HomePh" class="form-control" />
+                <span asp-validation-for="StaffMember.HomePh" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StaffMember.CellPh" class="control-label"></label>
+                <input asp-for="StaffMember.CellPh" class="form-control" />
+                <span asp-validation-for="StaffMember.CellPh" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StaffMember.OffExtension" class="control-label"></label>
+                <input asp-for="StaffMember.OffExtension" class="form-control" />
+                <span asp-validation-for="StaffMember.OffExtension" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="StaffMember.IrdNo" />
+            <div class="form-group">
+                <label asp-for="StaffMember.Status" class="control-label"></label>
+                <input asp-for="StaffMember.Status" class="form-control" />
+                <span asp-validation-for="StaffMember.Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
